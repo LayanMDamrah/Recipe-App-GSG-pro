@@ -4,15 +4,42 @@ import 'package:recipe_gsg/provider/bottom_nav_provider.dart';
 import 'package:recipe_gsg/services/shared_prefs.dart';
 import 'package:recipe_gsg/screens/favorites_screen.dart';
 import 'package:recipe_gsg/screens/home_content_screen.dart';
+import 'package:recipe_gsg/models/recipy.dart';
+import 'package:recipe_gsg/services/api_service.dart'; 
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  final List<Widget> _pages = const [HomeContentScreen(), FavoritesScreen()];
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Recipe> recipes = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRecipes();
+  }
+
+  Future<void> fetchRecipes() async {
+    final fetchedRecipes = await ApiService.getRecipes();
+    setState(() {
+      recipes = fetchedRecipes;
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final bottomNav = Provider.of<BottomNavProvider>(context);
+
+    final pages = [
+      HomeContentScreen(recipes: recipes),
+      const FavoritesScreen(),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -28,9 +55,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: _pages[bottomNav.selectedIndex],
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : pages[bottomNav.selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        
         currentIndex: bottomNav.selectedIndex,
         onTap: (index) => bottomNav.setIndex(index),
         selectedItemColor: Colors.orange,

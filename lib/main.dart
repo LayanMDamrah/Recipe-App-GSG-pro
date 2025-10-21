@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_gsg/provider/bottom_nav_provider.dart';
+import 'package:recipe_gsg/provider/favorites_provider.dart';
 import 'package:recipe_gsg/screens/home_screen.dart';
 import 'package:recipe_gsg/screens/login_screen.dart';
 import 'package:recipe_gsg/screens/onbording_sceen.dart';
@@ -11,13 +12,18 @@ import 'package:recipe_gsg/utils/app_colors.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefs.init();
+
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => BottomNavProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => BottomNavProvider()),
+        ChangeNotifierProvider(create: (_) => FavoritesProvider()), 
+      ],
       child: const MyApp(),
     ),
   );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -31,7 +37,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
         '/login': (context) => const LoginScreen(),
-        '/home': (context) => const HomeScreen(),
+        '/home': (context) =>  HomeScreen(),
       },
       theme: ThemeData(
         primaryColor: const Color(0xFFF58700),
