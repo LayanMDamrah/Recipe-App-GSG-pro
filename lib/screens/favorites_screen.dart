@@ -33,7 +33,7 @@ class FavoritesScreen extends StatelessWidget {
             );
           },
           child: Card(
-            margin: const EdgeInsets.symmetric(vertical: 8),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             elevation: 3,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -48,15 +48,15 @@ class FavoritesScreen extends StatelessWidget {
                   child: Image.network(
                     recipe.image,
                     width: double.infinity,
-                    height: 200,
+                    height: 300,
                     fit: BoxFit.cover,
                   ),
                 ),
-          
+
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 8,
+                    horizontal: 10,
+                    vertical: 10,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,7 +80,7 @@ class FavoritesScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text('Rating: ${recipe.rating}'),
                 ),
                 const SizedBox(height: 8),
