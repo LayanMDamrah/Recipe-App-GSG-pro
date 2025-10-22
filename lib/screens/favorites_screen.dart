@@ -13,7 +13,7 @@ class FavoritesScreen extends StatelessWidget {
 
     if (favorites.isEmpty) {
       return const Center(
-        child: Text("No favorites yet!", style: TextStyle(fontSize: 18)),
+        child: Text("No favorites yet", style: TextStyle(fontSize: 18)),
       );
     }
 

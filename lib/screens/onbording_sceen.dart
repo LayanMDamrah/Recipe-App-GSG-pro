@@ -17,9 +17,17 @@ class OnboardingScreen extends StatelessWidget {
       finishButtonStyle: FinishButtonStyle(backgroundColor: AppColors.primary),
 
       onFinish: () async {
-        await SharedPrefs.completeOnboarding();
-        Navigator.pushReplacementNamed(context, '/home');
-      },
+  await SharedPrefs.completeOnboarding();
+
+  final loggedIn = await SharedPrefs.isLoggedIn();
+
+  if (loggedIn) {
+    Navigator.pushReplacementNamed(context, '/home');
+  } else {
+    Navigator.pushReplacementNamed(context, '/login');
+  }
+},
+
 
       trailing: Text(
         'Login',

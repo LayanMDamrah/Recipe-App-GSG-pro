@@ -27,9 +27,12 @@ class _SignupScreenState extends State<SignupScreen> {
 
     setState(() => _loading = true);
 
+    await DBService.init(); 
+
     final existingUser = await DBService.getUserByEmail(
       _emailController.text.trim(),
     );
+
     if (existingUser != null) {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -48,8 +51,7 @@ class _SignupScreenState extends State<SignupScreen> {
     await SharedPrefs.login(newUser.email);
 
     setState(() => _loading = false);
-
-    Navigator.pushReplacementNamed(context, '/login');
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   @override
@@ -97,8 +99,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Enter your email';
+                    }
                     if (!value.contains('@')) return 'Enter a valid email';
                     return null;
                   },
@@ -126,10 +129,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Enter your password';
-                    if (value.length < 6)
+                    }
+                    if (value.length < 6) {
                       return 'Password must be at least 6 chars';
+                    }
                     return null;
                   },
                 ),

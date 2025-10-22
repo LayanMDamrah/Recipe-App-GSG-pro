@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import '../utils/constants.dart'; 
+import '../utils/constants.dart';
 
 class SharedPrefs {
   static SharedPreferences? _prefs;
@@ -8,10 +8,10 @@ class SharedPrefs {
     _prefs ??= await SharedPreferences.getInstance();
   }
 
-static Future<void> completeOnboarding() async {
-  await init();
-  await _prefs!.setBool(PrefKeys.kOnboardingCompletedKey, true);
-}
+  static Future<void> completeOnboarding() async {
+    await init();
+    await _prefs!.setBool(PrefKeys.kOnboardingCompletedKey, true);
+  }
 
   static Future<bool> isOnboardingCompleted() async {
     await init();
@@ -33,5 +33,18 @@ static Future<void> completeOnboarding() async {
     await init();
     await _prefs!.setBool(PrefKeys.kIsLoggedInKey, false);
     await _prefs!.remove(PrefKeys.kUserTokenKey);
+  }
+
+  static Future<void> saveFavorites(String data) async {
+    await _prefs?.setString('favorites', data);
+  }
+
+  static Future<String?> getFavorites() async {
+    return _prefs?.getString('favorites');
+  }
+
+  static Future<String?> getUserToken() async {
+    await init();
+    return _prefs!.getString(PrefKeys.kUserTokenKey);
   }
 }

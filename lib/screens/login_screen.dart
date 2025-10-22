@@ -82,8 +82,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Enter your email';
+                    }
                     if (!value.contains('@')) return 'Enter a valid email';
                     return null;
                   },
@@ -114,10 +115,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty)
+                    if (value == null || value.isEmpty) {
                       return 'Enter your password';
-                    if (value.length < 6)
+                    }
+                    if (value.length < 6) {
                       return 'Password must be at least 6 chars';
+                    }
                     return null;
                   },
                 ),

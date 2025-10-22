@@ -7,21 +7,18 @@ class DBService {
 
   static Future<void> init() async {
     if (_db != null) return;
+
     String path = join(await getDatabasesPath(), 'recipe_app.db');
-    _db = await openDatabase(
-      path,
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute('''
-  CREATE TABLE users(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,        
-    email TEXT UNIQUE,
-    password TEXT
-  )
-''');
-      },
-    );
+    _db = await openDatabase(path);
+
+    await _db!.execute('''
+      CREATE TABLE IF NOT EXISTS users(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,        
+        email TEXT UNIQUE,
+        password TEXT
+      )
+    ''');
   }
 
   static Future<int> insertUser(User user) async {
