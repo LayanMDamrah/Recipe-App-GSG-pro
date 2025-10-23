@@ -55,11 +55,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       MaterialPageRoute(
         builder: (_) => SafeArea(
           child: Scaffold(
-            appBar: AppBar(
-              title: const Text('Add Recipe'),
-              leading: const BackButton(),
-              centerTitle: true,
-            ),
             body: RecipeInputScreen(
               onSave: () async {
                 await fetchRecipes();
@@ -148,6 +143,40 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                                   Text(
                                     recipe.rating.toString(),
                                     style: const TextStyle(fontSize: 14),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  IconButton(
+                                    onPressed: () async {
+                                      if (recipe.id != null) {
+                                        await RecipeDBService.deleteRecipe(
+                                          recipe.id!,
+                                        );
+
+                                        await fetchRecipes();
+                                      }
+                                    },
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => RecipeInputScreen(
+                                            onSave: fetchRecipes,
+                                            recipeToEdit: recipe,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.edit,
+                                      color: AppColors.primary,
+                                    ),
                                   ),
                                 ],
                               ),
