@@ -28,12 +28,11 @@ class SharedPrefs {
     await init();
     return _prefs!.getBool(PrefKeys.kIsLoggedInKey) ?? false;
   }
+static Future<void> logout() async {
+  await init();
+  await _prefs!.setBool(PrefKeys.kIsLoggedInKey, false);
+}
 
-  static Future<void> logout() async {
-    await init();
-    await _prefs!.setBool(PrefKeys.kIsLoggedInKey, false);
-    await _prefs!.remove(PrefKeys.kUserTokenKey);
-  }
 
   static Future<void> saveFavorites(String data) async {
     await _prefs?.setString('favorites', data);
