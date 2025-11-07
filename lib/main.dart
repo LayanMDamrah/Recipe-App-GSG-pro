@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_gsg/cubit/recipe_cubit.dart';
 import 'package:recipe_gsg/provider/bottom_nav_provider.dart';
 import 'package:recipe_gsg/provider/favorites_provider.dart';
 import 'package:recipe_gsg/screens/home_screen.dart';
@@ -18,12 +19,15 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => BottomNavProvider()),
         ChangeNotifierProvider(create: (_) => FavoritesProvider()), 
+        Provider<RecipeCubit>(
+          create: (_) => RecipeCubit(),
+          dispose: (_, cubit) => cubit.close(),
+        ),
       ],
       child: const MyApp(),
     ),
   );
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
