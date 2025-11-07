@@ -1,16 +1,17 @@
-# recipe_gsg
+# Code2Career: Flutter Project Milestone 1
 
-A new Flutter project.
+## Project Overview
+This Flutter application is a Recipe Book app that demonstrates local authentication, state management using Cubit, local data storage with Sqflite, and API integration.  
+Users can:
+- Log in and stays in session locally using SharedPreferences
+- View recipes from a remote API  and add their own recipes locally
+- Add, edit, and delete recipes
+- View detailed recipe information with images, ratings, ingredients, and instructions
 
-## Getting Started
+## Features
+- Local authentication (not real login)
+- Navigation between Login, Home, Add Recipe, and Recipe Details screens
+- Recipes stored locally using Sqflite
+- Recipes fetched from API 
+- State management using  Cubit
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
